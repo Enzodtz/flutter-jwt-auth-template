@@ -14,7 +14,7 @@ Then you're good to go!
 
 ## Additional info
 
-This project contains all needed auth screens, like registering, using data in other screens, auto login when openning app, and access token refresh.
+This project contains all needed auth features, like registering, using data in other screens, auto login when openning app, and access token refresh.
 
 ## Resources
 
