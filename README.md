@@ -1,4 +1,4 @@
-# flutter_jwt_auth_example
+# flutter-jwt-auth-example
 
 An example of JWT authentication with flutter.
 
