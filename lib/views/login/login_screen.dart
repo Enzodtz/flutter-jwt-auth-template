@@ -5,7 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:axalta/blocs/auth/auth_bloc.dart';
 import 'package:axalta/exceptions/form_exceptions.dart';
-import 'package:axalta/screens/register/register_screen.dart';
+import 'package:axalta/views/register/register_screen.dart';
 import 'package:axalta/widgets/form_error_widget.dart';
 import 'package:axalta/widgets/success_dialog.dart';
 

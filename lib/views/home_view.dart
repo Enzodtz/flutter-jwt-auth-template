@@ -75,7 +75,9 @@ class _HomeViewState extends State<HomeView> {
               width: width, // <-- Your width
               height: height, // <-- Your height
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(pigmentRoute);
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: backgroundColor,
                     // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:axalta/blocs/auth/auth_bloc.dart';
-import 'package:axalta/screens/login/login_screen.dart';
+import 'package:axalta/views/login/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

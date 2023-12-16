@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:axalta/screens/home_view.dart';
-import 'package:axalta/screens/login/bloc/login_bloc.dart';
-import 'package:axalta/screens/login/login_screen.dart';
+import 'package:axalta/views/home_view.dart';
+import 'package:axalta/views/login/bloc/login_bloc.dart';
+import 'package:axalta/views/login/login_screen.dart';
+import 'package:axalta/views/weigihing/pigment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:axalta/screens/splash_screen.dart';
+import 'package:axalta/views/splash_screen.dart';
 
 import 'blocs/auth/auth_bloc.dart';
 import 'constants/routes.dart';
@@ -33,6 +34,8 @@ class App extends StatelessWidget {
             ),
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
+            return const HomeView();
+
             if (state is LoginSuccessState) {
               return const HomeView();
             } else {
@@ -44,6 +47,7 @@ class App extends StatelessWidget {
           homeRoute: (context) => const HomeView(),
           splashRoute: (context) => const SplashScreen(),
           loginRoute: (context) => LoginScreen(),
+          pigmentRoute: (context) => const PigmentView(),
         },
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
