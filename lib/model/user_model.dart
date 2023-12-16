@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:flutter_jwt_auth_example/exceptions/user_exceptions.dart';
-import 'package:flutter_jwt_auth_example/services/auth_service.dart';
+import 'package:axalta/exceptions/user_exceptions.dart';
+import 'package:axalta/services/auth_service.dart';
 
 class User {
   final int id;
@@ -23,11 +23,11 @@ class User {
     required this.accessToken,
     required this.refreshToken,
   }) {
-    if (isValidRefreshToken()) {
+    /*if (isValidRefreshToken()) {
       getNewToken();
     } else {
       throw InvalidUserException();
-    }
+    }*/
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -40,7 +40,7 @@ class User {
       accessToken: json['access'],
       refreshToken: json['refresh'],
     );
-    if (user.isValidRefreshToken()) {
+    if (user.accessToken.isNotEmpty) {
       return user;
     } else {
       throw InvalidUserException();
@@ -51,10 +51,10 @@ class User {
     return firstName + ' ' + lastName;
   }
 
-  bool isValidRefreshToken() {
+  /* bool isValidRefreshToken() {
     final jwtData = JwtDecoder.decode(refreshToken);
     return jwtData['exp'] < DateTime.now().millisecondsSinceEpoch;
-  }
+  }*/
 
   void getNewToken() async {
     final jwtData = JwtDecoder.decode(accessToken);

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_jwt_auth_example/model/user_model.dart';
-import 'package:flutter_jwt_auth_example/services/auth_service.dart';
+import 'package:axalta/model/user_model.dart';
+import 'package:axalta/services/auth_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:flutter_jwt_auth_example/blocs/auth/auth_bloc.dart';
-import 'package:flutter_jwt_auth_example/exceptions/form_exceptions.dart';
-import 'package:flutter_jwt_auth_example/widgets/cellphone_field.dart';
-import 'package:flutter_jwt_auth_example/widgets/form_error_widget.dart';
-import 'package:flutter_jwt_auth_example/widgets/success_dialog.dart';
+import 'package:axalta/blocs/auth/auth_bloc.dart';
+import 'package:axalta/exceptions/form_exceptions.dart';
+import 'package:axalta/widgets/cellphone_field.dart';
+import 'package:axalta/widgets/form_error_widget.dart';
+import 'package:axalta/widgets/success_dialog.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -129,11 +129,11 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                       textInputAction: TextInputAction.next,
                                       validator: FormBuilderValidators.compose([
-                                        FormBuilderValidators.required(context),
-                                        FormBuilderValidators.match(
+                                        // FormBuilderValidators.required(context),
+                                        /*FormBuilderValidators.match(
                                           context,
                                           r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
-                                        ),
+                                        ),*/
                                       ]),
                                     ),
                                     const SizedBox(
@@ -146,13 +146,8 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Last Name',
                                       ),
                                       textInputAction: TextInputAction.next,
-                                      validator: FormBuilderValidators.compose([
-                                        FormBuilderValidators.required(context),
-                                        FormBuilderValidators.match(
-                                          context,
-                                          r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
-                                        ),
-                                      ]),
+                                      validator:
+                                          FormBuilderValidators.compose([]),
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -169,8 +164,8 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                       textInputAction: TextInputAction.next,
                                       validator: FormBuilderValidators.compose([
-                                        FormBuilderValidators.required(context),
-                                        FormBuilderValidators.email(context),
+                                        // FormBuilderValidators.required(context),
+                                        //FormBuilderValidators.email(context),
                                       ]),
                                     ),
                                     const SizedBox(

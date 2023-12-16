@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:flutter_jwt_auth_example/exceptions/form_exceptions.dart';
-import 'package:flutter_jwt_auth_example/exceptions/secure_storage_exceptions.dart';
-import 'package:flutter_jwt_auth_example/model/user_model.dart';
-import 'package:flutter_jwt_auth_example/services/helper_service.dart';
+import 'package:axalta/exceptions/form_exceptions.dart';
+import 'package:axalta/exceptions/secure_storage_exceptions.dart';
+import 'package:axalta/model/user_model.dart';
+import 'package:axalta/services/helper_service.dart';
 
-import 'package:flutter_jwt_auth_example/services/secure_storage_service.dart';
+import 'package:axalta/services/secure_storage_service.dart';
 
 class AuthService {
-  static const String loginPath = 'token/';
+  static const String loginPath = '/login';
   static const String registerPath = 'users/';
   static const String refreshPath = 'token/refresh/';
   static const String verifyPath = 'token/verify/';
@@ -115,7 +115,7 @@ class AuthService {
       headers: HelperService.buildHeaders(),
       body: jsonEncode(
         {
-          'email': email,
+          'username': email,
           'password': password,
         },
       ),
@@ -125,11 +125,21 @@ class AuthService {
     switch (statusType) {
       case 200:
         final json = jsonDecode(response.body);
-        final user = User.fromJson(json);
+        String token = json["token"];
+        // final user = User.fromJson(json);
 
-        saveUser(user);
+        var localUser = User(
+            id: 1,
+            email: "email@email.com",
+            firstName: "firstName",
+            lastName: "lastName",
+            cellphone: "505",
+            accessToken: token,
+            refreshToken: "");
 
-        return user;
+        saveUser(localUser);
+
+        return localUser;
       case 400:
         final json = jsonDecode(response.body);
         throw handleFormErrors(json);

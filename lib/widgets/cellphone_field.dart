@@ -53,13 +53,7 @@ class _CellphoneFieldState extends State<CellphoneField> {
       inputFormatters: [cellphoneFormatter],
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context),
-        FormBuilderValidators.match(
-          context,
-          r"^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$",
-        ),
-      ]),
+      validator: FormBuilderValidators.compose([]),
     );
   }
 }

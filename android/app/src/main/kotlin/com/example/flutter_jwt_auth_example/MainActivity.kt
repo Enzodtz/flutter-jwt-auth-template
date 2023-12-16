@@ -1,4 +1,4 @@
-package com.example.flutter_jwt_auth_example
+package com.example.axalta
 
 import io.flutter.embedding.android.FlutterActivity
 

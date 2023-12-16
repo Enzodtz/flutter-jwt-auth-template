@@ -1,13 +1,19 @@
+import 'dart:io';
+
+import 'package:axalta/screens/home_view.dart';
+import 'package:axalta/screens/login/bloc/login_bloc.dart';
+import 'package:axalta/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_jwt_auth_example/screens/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:flutter_jwt_auth_example/screens/splash_screen.dart';
+import 'package:axalta/screens/splash_screen.dart';
 
 import 'blocs/auth/auth_bloc.dart';
+import 'constants/routes.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const App());
 }
 
@@ -19,7 +25,7 @@ class App extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
-        title: 'Pet Home',
+        title: 'Home',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             // colorScheme: const ColorScheme.dark(),
@@ -27,20 +33,25 @@ class App extends StatelessWidget {
             ),
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is AuthLoadingState) {
-              return const SplashScreen();
+            if (state is LoginSuccessState) {
+              return const HomeView();
             } else {
-              return const HomeScreen();
+              return LoginScreen();
             }
           },
         ),
+        routes: {
+          homeRoute: (context) => const HomeView(),
+          splashRoute: (context) => const SplashScreen(),
+          loginRoute: (context) => LoginScreen(),
+        },
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('en', ''),
+          Locale('tr', ''),
           // Locale('pt', ''),
           // Locale('es', ''),
           // Locale('fa', ''),
@@ -51,5 +62,14 @@ class App extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

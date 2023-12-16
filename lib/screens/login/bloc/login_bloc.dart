@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_jwt_auth_example/exceptions/form_exceptions.dart';
-import 'package:flutter_jwt_auth_example/model/user_model.dart';
-import 'package:flutter_jwt_auth_example/services/auth_service.dart';
+import 'package:axalta/exceptions/form_exceptions.dart';
+import 'package:axalta/model/user_model.dart';
+import 'package:axalta/services/auth_service.dart';
+import 'dart:developer' as devtools show log;
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -24,6 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } on FormFieldsException catch (e) {
         emit(LoginErrorState(e));
       } catch (e) {
+        devtools.log(e.toString());
         emit(LoginErrorState(
           FormGeneralException(message: 'Unidentified error'),
         ));
