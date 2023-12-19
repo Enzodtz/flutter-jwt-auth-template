@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:axalta/constants/user_token.dart';
 import 'package:http/http.dart' as http;
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:axalta/exceptions/form_exceptions.dart';
 import 'package:axalta/exceptions/secure_storage_exceptions.dart';
 import 'package:axalta/model/user_model.dart';
@@ -127,7 +126,7 @@ class AuthService {
         final json = jsonDecode(response.body);
         String token = json["token"];
         // final user = User.fromJson(json);
-
+        userToken = token;
         var localUser = User(
             id: 1,
             email: "email@email.com",

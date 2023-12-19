@@ -1,3 +1,5 @@
+import 'package:axalta/model/weighing_product_dto.dart';
+import 'package:axalta/services/weight/weight_service.dart';
 import 'package:flutter/material.dart';
 
 class PigmentView extends StatefulWidget {
@@ -126,7 +128,19 @@ class _PigmentViewState extends State<PigmentView> {
                         child: const Text('Detay'),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          WeighingProductDto dto = WeighingProductDto(
+                              id: 1,
+                              lineNumber: int.parse(_lineNo.text),
+                              batchNo: _bacthNo.text,
+                              mixNo: int.parse(_mixNo.text),
+                              isExtra: false,
+                              sequenceNumber: 2,
+                              productNumber: _qrCode.text,
+                              weight: "22",
+                              isDone: true);
+
+                          await ApiService().postData(dto);
                           // Üçüncü butonun işlevi
                         },
                         child: const Text('Ok'),

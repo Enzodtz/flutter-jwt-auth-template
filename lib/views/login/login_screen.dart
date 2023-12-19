@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
       final data = _formKey.currentState?.value;
       context.read<LoginBloc>().add(
             LoginRequestEvent(
-              email: data!['email'],
+              email: data!['userName'],
               password: data['password'],
             ),
           );
@@ -48,16 +48,6 @@ class LoginScreen extends StatelessWidget {
                   homeRoute,
                   (route) => false,
                 );
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const SuccessDialog(
-                      title: 'Success',
-                      text: 'Your login was successful!',
-                      buttonText: 'Continue',
-                    );
-                  },
-                );
               }
             },
             builder: (context, state) {
@@ -65,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 onWillPop: () => popScreen(state),
                 child: Scaffold(
                   appBar: AppBar(
-                    title: const Text("Login"),
+                    title: const Text("Giriş"),
                     leading: IconButton(
                       onPressed: () async {
                         if (await popScreen(state)) {
@@ -93,7 +83,24 @@ class LoginScreen extends StatelessWidget {
                                         .entries) {
                                       _formKey.currentState?.invalidateField(
                                         name: error.key,
-                                        errorText: error.value,
+                                        errorText: error.toString(),
+                                      );
+                                      return AlertDialog(
+                                        title: const Text("Hatalı Giriş"),
+                                        content: const Text(
+                                            'Kulllanıcı Adı veya Şifre hatalı'),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              // Dialog kapatılıyor
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      loginRoute,
+                                                      (route) => false);
+                                            },
+                                            child: const Text('Tamam'),
+                                          ),
+                                        ],
                                       );
                                     }
                                   }
@@ -102,35 +109,17 @@ class LoginScreen extends StatelessWidget {
                                 return Column(
                                   children: [
                                     Builder(builder: (context) {
-                                      if (state is LoginErrorState) {
-                                        if (state.exception
-                                            is FormGeneralException) {
-                                          return Column(
-                                            children: [
-                                              FormErrorWidget(
-                                                (state.exception
-                                                        as FormGeneralException)
-                                                    .message,
-                                              ),
-                                              const SizedBox(
-                                                height: 20,
-                                              )
-                                            ],
-                                          );
-                                        }
-                                      }
                                       return Container();
                                     }),
                                     FormBuilderTextField(
-                                      name: 'email',
+                                      name: 'userName',
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(),
-                                        labelText: 'Email',
+                                        labelText: 'Kullanıcı Adı',
                                       ),
                                       textInputAction: TextInputAction.next,
                                       validator: FormBuilderValidators.compose([
-                                        // FormBuilderValidators.required(context),
-                                        // FormBuilderValidators.email(context),
+                                        FormBuilderValidators.required(),
                                       ]),
                                     ),
                                     const SizedBox(
@@ -140,10 +129,13 @@ class LoginScreen extends StatelessWidget {
                                       name: 'password',
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(),
-                                        labelText: 'Password',
+                                        labelText: 'Şifre',
                                       ),
                                       obscureText: true,
                                       textInputAction: TextInputAction.done,
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(),
+                                      ]),
                                       onSubmitted: (_) {
                                         if (state is! AuthLoadingState) {
                                           submitForm(context);
@@ -177,31 +169,13 @@ class LoginScreen extends StatelessWidget {
                                           : const SizedBox(
                                               width: double.infinity,
                                               child: Text(
-                                                'Login',
+                                                'Giriş',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                 ),
                                               ),
                                             ),
-                                    ),
-                                    OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterScreen(),
-                                          ),
-                                        );
-                                      },
-                                      child: const SizedBox(
-                                        width: double.infinity,
-                                        child: Text(
-                                          'Sign Up',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
                                     ),
                                   ],
                                 );

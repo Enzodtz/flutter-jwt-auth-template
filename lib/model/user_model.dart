@@ -51,6 +51,10 @@ class User {
     return firstName + ' ' + lastName;
   }
 
+  String getAccessToken() {
+    return accessToken;
+  }
+
   /* bool isValidRefreshToken() {
     final jwtData = JwtDecoder.decode(refreshToken);
     return jwtData['exp'] < DateTime.now().millisecondsSinceEpoch;

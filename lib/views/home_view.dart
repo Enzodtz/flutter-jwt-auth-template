@@ -33,11 +33,6 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text("Ana Ekran"),
         actions: [
-          IconButton(
-              onPressed: () {
-                // Navigator.of(context).pushNamed(newNoteRoute);
-              },
-              icon: const Icon(Icons.add)),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -48,7 +43,19 @@ class _HomeViewState extends State<HomeView> {
                     context
                         .read<AuthBloc>()
                         .add(AuthLogoutEvent()); //Logout User
-                    devtools.log("Logout succesfly");
+                    devtools.log("Çıkış Başarılı");
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+                  }
+                  break;
+                case MenuAction.changePassword:
+                  final shouldLogOut = await showLogOutDialog(context);
+
+                  if (shouldLogOut) {
+                    context
+                        .read<AuthBloc>()
+                        .add(AuthLogoutEvent()); //Logout User
+                    devtools.log("Çıkış Başarılı");
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   }
@@ -59,7 +66,11 @@ class _HomeViewState extends State<HomeView> {
               return const [
                 PopupMenuItem(
                   value: MenuAction.logout,
-                  child: Text("Log Out"),
+                  child: Text("Şifre Değiştir"),
+                ),
+                PopupMenuItem(
+                  value: MenuAction.logout,
+                  child: Text("Çıkış"),
                 )
               ];
             },
@@ -159,19 +170,19 @@ Future<bool> showLogOutDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: const Text("Sign out"),
-        content: const Text("Are you sure you want to sign out?"),
+        title: const Text("Kullanıcı Çıkışı"),
+        content: const Text("Çıkış yapmak istediğinize emin misiniz?"),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text("Cancel")),
+              child: const Text("İptal")),
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text("Log Out")),
+              child: const Text("Çıkış")),
         ],
       );
     },

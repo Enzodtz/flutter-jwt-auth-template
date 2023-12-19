@@ -1,3 +1,4 @@
 enum MenuAction {
   logout,
+  changePassword,
 }

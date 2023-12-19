@@ -34,7 +34,7 @@ class App extends StatelessWidget {
             ),
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            return const HomeView();
+            // return const HomeView();
 
             if (state is LoginSuccessState) {
               return const HomeView();
@@ -55,7 +55,7 @@ class App extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('tr', ''),
+          Locale('en', ''),
           // Locale('pt', ''),
           // Locale('es', ''),
           // Locale('fa', ''),

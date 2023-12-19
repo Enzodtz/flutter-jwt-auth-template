@@ -1,7 +1,6 @@
+import 'package:axalta/constants/api_url.dart';
+
 class HelperService {
-  static const String host = "192.168.1.33";
-  static const int port = 8086;
-  static const String scheme = "https";
   static const String apiPath = "/api/userauthentication";
 
   static Uri buildUri(String path) {
